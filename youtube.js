@@ -7,20 +7,20 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 let player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '390',
-    width: '640',
-    videoId: 'i5Cyi_4GIeU',
-    playerVars: {
-      'playsinline': 1
-    },
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
+// function onYouTubeIframeAPIReady() {
+//   player = new YT.Player('player', {
+//     height: '390',
+//     width: '640',
+//     videoId: 'i5Cyi_4GIeU',
+//     playerVars: {
+//       'playsinline': 1
+//     },
+//     events: {
+//       'onReady': onPlayerReady,
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+// }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
@@ -37,6 +37,7 @@ function onPlayerStateChange(event) {
     done = true;
   }
 }
+
 function stopVideo() {
   player.stopVideo();
 }
@@ -46,8 +47,25 @@ function changeVideo(event) {
   let formElement = document.forms.video;
   let formData = new FormData(formElement);
   let vidLink = formData.get('vid-link');
-  console.log(vidLink);
+  let videoId = extractVideoId(vidLink);
+  console.log(videoId);
+  updatePlayer(videoId);
   event.preventDefault();
+}
+
+function updatePlayer(videoId) {
+  player = new YT.Player('player', {
+    height: '390',
+    width: '640',
+    videoId: videoId,
+    playerVars: {
+      'playsinline': 1
+    }
+  });
+}
+
+function extractVideoId(vidLink) {
+  return vidLink.split("v=")[1].substring(0,11);
 }
 
 const videoForm = document.getElementById('video');
