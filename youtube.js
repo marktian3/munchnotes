@@ -1,19 +1,17 @@
-
-// 2. This code loads the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
-
+// Load the iFrame API
+let tag = document.createElement('script');
+let firstScriptTag = document.getElementsByTagName('script')[0];
 tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
-var player;
+let player;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '390',
     width: '640',
-    videoId: 'M7lc1UVf-VE',
+    videoId: 'i5Cyi_4GIeU',
     playerVars: {
       'playsinline': 1
     },
@@ -32,7 +30,7 @@ function onPlayerReady(event) {
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
-var done = false;
+let done = false;
 function onPlayerStateChange(event) {
   if (event.data == YT.PlayerState.PLAYING && !done) {
     setTimeout(stopVideo, 6000);
@@ -42,3 +40,15 @@ function onPlayerStateChange(event) {
 function stopVideo() {
   player.stopVideo();
 }
+
+// Change videos when new link is submitted
+function changeVideo(event) {
+  let formElement = document.forms.video;
+  let formData = new FormData(formElement);
+  let vidLink = formData.get('vid-link');
+  console.log(vidLink);
+  event.preventDefault();
+}
+
+const videoForm = document.getElementById('video');
+videoForm.addEventListener('submit', changeVideo);

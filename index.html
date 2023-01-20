@@ -5,14 +5,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="youtube.js"></script>
   <title>Munch Notes</title>
 </head>
 
 <body>
   <p>Welcome to munch notes</p>
+  <form id="video">
+    <div>
+      <label for="vid-link">Enter a youtube video link </label>
+      <input type="text" id="vid-link" name="vid-link" />
+    </div>
+    <div>
+      <button>Submit</button>
+    </div>
+  </form>
+  
   <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
   <div id="player"></div>
 </body>
+
+<script src="youtube.js"></script>
 
 </html>
